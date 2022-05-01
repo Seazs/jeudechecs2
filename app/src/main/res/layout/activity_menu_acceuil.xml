@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".menu_acceuil">
+
+
+    <EditText
+        android:id="@+id/text_joueur1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="120dp"
+        android:clickable="true"
+        android:cursorVisible="true"
+        android:ems="10"
+        android:focusableInTouchMode="true"
+        android:inputType="textPersonName"
+        android:linksClickable="true"
+        android:longClickable="true"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:text="Joueur 1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/text_joueur2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="34dp"
+        android:clickable="true"
+        android:cursorVisible="true"
+        android:ems="10"
+        android:focusableInTouchMode="true"
+        android:inputType="textPersonName"
+        android:linksClickable="true"
+        android:longClickable="true"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:text="Joueur 2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_joueur1" />
+
+    <Button
+        android:id="@+id/Partie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="324dp"
+        android:text="lancer la Partie"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
