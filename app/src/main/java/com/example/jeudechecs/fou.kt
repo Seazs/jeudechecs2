@@ -1,92 +1,59 @@
 package com.example.jeudechecs
 
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.RectF
+import android.content.Context
+import android.graphics.*
 
-class fou(nom : String, position : case, couleur : String): pièce(nom, position, couleur){
-    override fun deplacement(nouvelleposition : case, liste_de_case : MutableList<MutableList<case>>): Boolean{
+class fou(nom : String, position : case, couleur : String, joueur: Joueur): pièce(nom, position, couleur, joueur){
+    override var point = 3
+    override fun deplacement(nouvelleposition : case, liste_de_case : MutableList<MutableList<case>>, virtuel: Boolean): Boolean{
         if (position.ordonnee-nouvelleposition.ordonnee == position.absysse-nouvelleposition.absysse){
             for (i in minOf(position.absysse, nouvelleposition.absysse)+1..maxOf(position.absysse, nouvelleposition.absysse)-1){
                 if (liste_de_case[i][i-nouvelleposition.absysse+nouvelleposition.ordonnee].libre == false){
-                    println("${liste_de_case[i][position.ordonnee].occupant?.nom} dans le passage")
                     return false
                 }
             }
             if (nouvelleposition.occupant?.couleur == couleur){
                 return false
             }
-            else {
-                super.deplacement(nouvelleposition, liste_de_case)
+            else if (nouvelleposition.occupant?.nom != "piecetrou"){
+                if (virtuel == false){
+                    super.deplacement(nouvelleposition, liste_de_case, virtuel)
+                }
                 return true
             }
         }
         else if (position.ordonnee-nouvelleposition.ordonnee == -(position.absysse-nouvelleposition.absysse)){
             for (i in minOf(position.absysse, nouvelleposition.absysse)+1..maxOf(position.absysse, nouvelleposition.absysse)-1){
                 if (liste_de_case[i][-i+nouvelleposition.absysse+nouvelleposition.ordonnee].libre == false){
-                    println("${liste_de_case[i][position.ordonnee].occupant?.nom} dans le passage")
                     return false
                 }
             }
             if (nouvelleposition.occupant?.couleur == couleur){
                 return false
             }
-            else {
-                super.deplacement(nouvelleposition, liste_de_case)
+            else if (nouvelleposition.occupant?.nom != "piecetrou"){
+                if (virtuel == false){
+                    super.deplacement(nouvelleposition, liste_de_case, virtuel)
+                }
                 return true
             }
         }
         else {
-            println("Le fou ne se déplace qu'en diagonale")
             return false
         }
+        return false
     }
 
-    override fun draw(canvas: Canvas, X1:Float, Y1:Float, X2:Float, Y2:Float){
-        val r2 = RectF(X1 + 20, Y1 - 20, X2 - 20, Y2 + 80)
-        val r3 = RectF(X1 + 45, Y2 + 25, X1 + 90, Y2 + 70)
+    override fun draw(canvas: Canvas, X1: Float, Y1: Float, X2: Float, Y2: Float, context: Context){
+        val r = RectF(X1 - 20, Y2, X2, Y1)
+        var bitmap: Bitmap
+
         if (this.couleur == "blanc"){
-            paint.color = Color.WHITE
+            bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.fou_b)
         }
         else {
-            paint.color = Color.BLACK
+            bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.fou_n)
         }
-        canvas.drawOval(r2, paint)
-        canvas.drawOval(r3, paint)
-    }
-
-    override fun deplacement2(nouvelleposition : case, liste_de_case : MutableList<MutableList<case>>): Boolean{
-        if (position.ordonnee-nouvelleposition.ordonnee == position.absysse-nouvelleposition.absysse){
-            for (i in minOf(position.absysse, nouvelleposition.absysse)+1..maxOf(position.absysse, nouvelleposition.absysse)-1){
-                if (liste_de_case[i][i-nouvelleposition.absysse+nouvelleposition.ordonnee].libre == false){
-                    println("${liste_de_case[i][position.ordonnee].occupant?.nom} dans le passage")
-                    return false
-                }
-            }
-            if (nouvelleposition.occupant?.couleur == couleur){
-                return false
-            }
-            else {
-                return true
-            }
-        }
-        else if (position.ordonnee-nouvelleposition.ordonnee == -(position.absysse-nouvelleposition.absysse)){
-            for (i in minOf(position.absysse, nouvelleposition.absysse)+1..maxOf(position.absysse, nouvelleposition.absysse)-1){
-                if (liste_de_case[i][-i+nouvelleposition.absysse+nouvelleposition.ordonnee].libre == false){
-                    println("${liste_de_case[i][position.ordonnee].occupant?.nom} dans le passage")
-                    return false
-                }
-            }
-            if (nouvelleposition.occupant?.couleur == couleur){
-                return false
-            }
-            else {
-                return true
-            }
-        }
-        else {
-            println("Le fou ne se déplace qu'en diagonale")
-            return false
-        }
+        canvas.drawBitmap(bitmap, null, r, null)
     }
 }

@@ -19,11 +19,18 @@ class menu_acceuil : AppCompatActivity(){
 
         //boutonPartie = findViewById(this.Partie.id)
         Partie.setOnClickListener {
-            joueur1 = text_joueur1.text.toString()
-            joueur2 = text_joueur2.text.toString()
-            val myIntent : Intent = Intent(this , MainActivity::class.java).putExtra("joueur1", joueur1).putExtra("joueur2", joueur2)
-            startActivity(myIntent)
+            attribuer_joueur()
+            lancer_partie()
         }
+    }
+    fun attribuer_joueur(){
+        joueur1 = text_joueur1.text.toString()
+        joueur2 = text_joueur2.text.toString()
+    }
+    fun lancer_partie(){
+        val myIntent : Intent = Intent(this , MainActivity::class.java).putExtra("joueur1", joueur1).putExtra("joueur2", joueur2)
+        startActivity(myIntent)
+        finish()
     }
 }
 

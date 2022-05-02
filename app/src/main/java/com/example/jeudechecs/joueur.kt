@@ -1,4 +1,5 @@
 package com.example.jeudechecs
 
-class joueur {
+class Joueur (var nom : String? , score : Int?){
+    var score = 0
 }
