@@ -11,11 +11,12 @@
         android:theme="@style/Theme.Jeudechecs">
         <activity
             android:name=".ecran_final"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Jeu d&apos;échecs"/>
         <activity
             android:name=".menu_acceuil"
             android:exported="true"
-            android:label="jeu d&apos;echec">
+            android:label="Jeu d&apos;échecs">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

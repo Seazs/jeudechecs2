@@ -1,6 +1,7 @@
 package com.example.jeudechecs
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
@@ -8,6 +9,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
+import androidx.core.content.ContextCompat
 
 class DrawingView @JvmOverloads constructor (context: Context, attributes: AttributeSet? = null, defStyleAttr: Int = 0, joueur1: Joueur = Joueur("", 0), joueur2: Joueur = Joueur("", 0)): SurfaceView(context, attributes,defStyleAttr), SurfaceHolder.Callback, Runnable {
 
@@ -33,6 +35,9 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
     lateinit var liste_de_casier2 : MutableList<casier>
     var casier_selec : casier? = null
     var ancientpaintcasier = Paint()
+    var timeLeft1 = 600000.0
+    var timeLeft2 = 600000.0
+    var previousFrameTime = System.currentTimeMillis()
 
 
     init {
@@ -50,11 +55,11 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         super.onSizeChanged(w, h, oldw, oldh)
         val canvasW = (w).toFloat()
         //val canvasH = (h).toFloat()
-        plateau1 = plateau(8, 8, 0f, 0f + 450f, canvasW, canvasW + 450f, jou1, jou2)
+        plateau1 = plateau(8, 8, 0f, 0f + 340f, canvasW, canvasW + 340f, jou1, jou2)
         liste_de_case = plateau1.creer_liste_de_case()
-        inventaire1 = inventaire(3, 340f, 300f, 730f, 430f, "noir")
+        inventaire1 = inventaire(3, 340f, 280f, 730f, 410f, "noir")
         liste_de_casier1 = inventaire1.creer_liste_de_casier()
-        inventaire2 = inventaire(3, 340f, 1810f, 730f, 1940f, "blanc")
+        inventaire2 = inventaire(3, 340f, 1670f, 730f, 1800f, "blanc")
         liste_de_casier2 = inventaire2.creer_liste_de_casier()
     }
 
@@ -77,6 +82,15 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
             plateau1.draw(canvas, liste_de_case, context)
             inventaire1.draw(canvas, liste_de_casier1)
             inventaire2.draw(canvas, liste_de_casier2)
+            val secondsLeft1 = ((timeLeft1/1000) % 60).toInt()
+            val minutesLeft1 = ((timeLeft1/1000) / 60).toInt()
+            val secondsLeft2 = ((timeLeft2/1000) % 60).toInt()
+            val minutesLeft2 = ((timeLeft2/1000) / 60).toInt()
+            canvas.drawText("CHRONO :", 750F, 1570F, couleur_text)
+            canvas.drawText("CHRONO :", 750F, 180F, couleur_text)
+            canvas.drawText("$minutesLeft1 : $secondsLeft1 ", 750f, 1640f, couleur_text)
+            canvas.drawText("$minutesLeft2 : $secondsLeft2", 750f, 250f, couleur_text)
+
             holder.unlockCanvasAndPost(canvas)
 
         }
@@ -188,9 +202,38 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         return true
     }
 
+    fun updatetemps(elapsedTimeMS: Double) {
+        if (couleur_de_jeu == "blanc"){
+            timeLeft1 -= elapsedTimeMS
+        } else {
+            timeLeft2 -= elapsedTimeMS
+        }
+        if (timeLeft1 <= 0.0) {
+            timeLeft1 = 0.0
+            val monIntent : Intent = Intent(MainActivity.context, ecran_final::class.java)
+                .putExtra("score_gagnant", jou1.score)
+                .putExtra("joueur_gagnant", jou1.nom)
+            ContextCompat.startActivity(MainActivity.context, monIntent, null)
+            MainActivity.mainActivity.finish()
+            drawing = false
+        }
+        else if (timeLeft2 <= 0.0) {
+            timeLeft2 = 0.0
+            val monIntent : Intent = Intent(MainActivity.context, ecran_final::class.java)
+                .putExtra("score_gagnant", jou2.score)
+                .putExtra("joueur_gagnant", jou2.nom)
+            ContextCompat.startActivity(MainActivity.context, monIntent, null)
+            MainActivity.mainActivity.finish()
+            drawing = false
+        }
+    }
 
     override fun run() {
         while (drawing) {
+            val currentTime = System.currentTimeMillis()
+            var elapsedTimeMS:Double = (currentTime-previousFrameTime).toDouble()
+            previousFrameTime = currentTime
+            updatetemps(elapsedTimeMS)
             draw()
         }
     }

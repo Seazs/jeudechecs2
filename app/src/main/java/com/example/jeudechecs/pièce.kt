@@ -9,7 +9,7 @@ import androidx.core.content.ContextCompat.startActivity
 
 open class pièce(val nom : String, var position: case, val couleur : String, joueur : Joueur){
 
-    open var point: Int =0
+    open var point: Int = 0
     var joueur = joueur
     val paint = Paint()
     val soundPool : SoundPool = SoundPool(2, AudioManager.STREAM_MUSIC, 0 )
@@ -56,15 +56,5 @@ open class pièce(val nom : String, var position: case, val couleur : String, jo
     }
 
     open fun draw(canvas: Canvas, X1: Float, Y1: Float, X2: Float, Y2: Float, context: Context){
-        val r = RectF(X1 - 70, Y2, X2, Y1)
-        val bitmap: Bitmap
-        if (this.couleur == "blanc"){
-            bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.pion_b)
-        }
-        else {
-            bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.pion_n)
-        }
-        canvas.drawBitmap(bitmap, null, r, null)
-
     }
 }

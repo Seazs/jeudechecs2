@@ -6,13 +6,15 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/score"
+        android:id="@+id/gagnant"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="154dp"
-        android:text="Score:"
+        android:layout_marginTop="176dp"
+        android:text="Gagnant"
+        android:textColor="#673AB7"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -20,9 +22,37 @@
         android:id="@+id/retour_acceuil"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="309dp"
-        android:text="retour menu acceuil"
+        android:layout_marginBottom="12dp"
+        android:text="Retour Menu Accueil"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/score"
+        app:layout_constraintVertical_bias="0.34" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="36dp"
+        android:text="Résultats"
+        android:textAllCaps="true"
+        android:textColor="#9C27B0"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/gagnant"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Score"
+        android:textColor="#673AB7"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="@+id/gagnant"
+        app:layout_constraintTop_toBottomOf="@+id/gagnant" />
 </androidx.constraintlayout.widget.ConstraintLayout>

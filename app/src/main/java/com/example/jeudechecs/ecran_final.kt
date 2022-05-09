@@ -17,7 +17,8 @@ class ecran_final : AppCompatActivity() {
         val intent: Intent = intent
         val score_gagnant = intent.getIntExtra("score_gagnant", 0).toString()
         val joueur_gagnant = intent.getStringExtra("joueur_gagnant")
-        score.text = "score du joueur: $joueur_gagnant = $score_gagnant"
+        gagnant.text = "Gagnant : $joueur_gagnant"
+        score.text = "Score : $score_gagnant"
         retour_acceuil.setOnClickListener{
             val myintent: Intent = Intent(this, menu_acceuil::class.java)
             startActivity(myintent)

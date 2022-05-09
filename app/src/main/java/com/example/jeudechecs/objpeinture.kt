@@ -1,18 +1,18 @@
 package com.example.jeudechecs
 
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.RectF
+import android.content.Context
+import android.graphics.*
 
 class objpeinture(nom : String, position : casier, couleur : String): objet(nom, position, couleur){
-    override fun draw(canvas: Canvas, X1:Float, Y1:Float, X2:Float, Y2:Float){
-        val r2 = RectF(X1 + 30, Y1 - 30, X2 - 30, Y2 + 30)
+    override fun draw(canvas: Canvas, X1:Float, Y1:Float, X2:Float, Y2:Float, context: Context){
+        val r = RectF(X1 +10, Y2+10, X2-10, Y1-10)
+        val bitmap: Bitmap
         if (this.couleur == "blanc"){
-            paint.color = Color.WHITE
+            bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.pinceau)
         }
         else {
-            paint.color = Color.BLACK
+            bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.pinceau)
         }
-        canvas.drawOval(r2, paint)
+        canvas.drawBitmap(bitmap, null, r, null)
     }
 }

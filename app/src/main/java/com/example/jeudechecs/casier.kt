@@ -3,6 +3,7 @@ package com.example.jeudechecs
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.RectF
+import com.example.jeudechecs.MainActivity.Companion.context
 
 class casier(val nom : String, val absysse : Int, var libre : Boolean, var occupant : objet?, var couleur: Paint): objetpiece {
 
@@ -12,7 +13,7 @@ class casier(val nom : String, val absysse : Int, var libre : Boolean, var occup
         r = RectF(X1, Y1, X2, Y2)
         canvas.drawRect(r, couleur)
         if (libre == false){
-            occupant?.draw(canvas, X1, Y1, X2, Y2)
+            occupant?.draw(canvas, X1, Y1, X2, Y2, context)
         }
     }
 }

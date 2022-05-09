@@ -40,7 +40,7 @@ public class MainActivity : Activity() {
             // Code à éxécuter de façon périodique
             affichage_joueur1.text = joueur1.nom + " " + joueur1.score
             affichage_joueur2.text = joueur2.nom + " " + joueur2.score
-            myHandler!!.postDelayed(this, 100)
+            myHandler.postDelayed(this, 100)
 
         }
     }
